@@ -827,46 +827,106 @@ function initMusicPlayer() {
 }
 
 /* ============================================================
-   7. INTERACTIVE WISH MAKER
+   7. INTERACTIVE WISH MAKER (Shared Global Sync)
+   Synchronizes wishes across all users and devices via CountAPI
+   with real-time live polling and localStorage caching.
    ============================================================ */
 function initWishMaker() {
   const wishBtn = document.getElementById('send-wish-btn');
   const counterEl = document.getElementById('wish-count-number');
   const STORAGE_KEY = 'birthday_wish_count';
+  const API_KEY = 'pratyoyee_pro_birthday_wishes_2026';
+  const API_BASE = 'https://countapi.mileshilliard.com/api/v1';
 
   if (!wishBtn || !counterEl) return;
 
-  // Restore saved wish count from localStorage
+  // Initialize with locally cached count for instant zero-lag rendering
   let wishCount = 0;
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved !== null) {
       const parsed = parseInt(saved, 10);
-      if (!isNaN(parsed) && parsed >= 0) {
-        wishCount = parsed;
-      }
+      if (!isNaN(parsed) && parsed >= 0) wishCount = parsed;
     }
-  } catch (err) {
-    console.warn('LocalStorage not available for wish count:', err);
-  }
+  } catch (err) {}
   counterEl.textContent = wishCount;
+
+  // Update counter with subtle bounce animation
+  function updateCounterDisplay(newVal, animate = false) {
+    if (newVal === wishCount && counterEl.textContent == newVal) return;
+    wishCount = newVal;
+    counterEl.textContent = wishCount;
+    try {
+      localStorage.setItem(STORAGE_KEY, wishCount.toString());
+    } catch (err) {}
+
+    if (animate && counterEl.parentElement) {
+      counterEl.parentElement.style.transform = 'scale(1.15)';
+      setTimeout(() => (counterEl.parentElement.style.transform = 'scale(1)'), 200);
+    }
+  }
+
+  // Fetch current shared count from the global cloud counter
+  async function fetchSharedCount() {
+    try {
+      const res = await fetch(`${API_BASE}/get/${API_KEY}`, { cache: 'no-store' });
+      if (res.ok) {
+        const data = await res.json();
+        if (typeof data.value === 'number') {
+          const cloudVal = data.value;
+          if (cloudVal > wishCount) {
+            updateCounterDisplay(cloudVal, true);
+          } else if (wishCount > cloudVal) {
+            // If local was higher (e.g. from an offline session), sync up
+            fetch(`${API_BASE}/set/${API_KEY}?value=${wishCount}`).catch(() => {});
+          }
+        }
+      }
+    } catch (err) {
+      // Network error or offline; smoothly relies on cached count
+    }
+  }
+
+  // Send an increment to the shared global cloud counter
+  async function incrementSharedCount() {
+    try {
+      const res = await fetch(`${API_BASE}/hit/${API_KEY}`, { cache: 'no-store' });
+      if (res.ok) {
+        const data = await res.json();
+        if (typeof data.value === 'number') {
+          updateCounterDisplay(Math.max(wishCount, data.value));
+        }
+      }
+    } catch (err) {
+      // Offline fallback: already incremented locally
+    }
+  }
+
+  // Initial fetch on page load
+  fetchSharedCount();
+
+  // Poll every 4 seconds when the page is visible so wishes from other users appear live
+  setInterval(() => {
+    if (document.visibilityState === 'visible') {
+      fetchSharedCount();
+    }
+  }, 4000);
+
+  // Also fetch immediately when user returns to this tab
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      fetchSharedCount();
+    }
+  });
 
   const wishEmojis = ['💖', '✨', '🎂', '🌸', '🎈', '⭐', '🧁', '🥂', '💌', '🌷'];
 
-  wishBtn.addEventListener('click', (e) => {
-    wishCount++;
-    counterEl.textContent = wishCount;
+  wishBtn.addEventListener('click', () => {
+    // Optimistic immediate UI increment
+    updateCounterDisplay(wishCount + 1, true);
 
-    // Persist updated count across page visits and browser restarts
-    try {
-      localStorage.setItem(STORAGE_KEY, wishCount.toString());
-    } catch (err) {
-      console.warn('Failed to persist wish count:', err);
-    }
-
-    // Small scale pop on counter
-    counterEl.parentElement.style.transform = 'scale(1.15)';
-    setTimeout(() => (counterEl.parentElement.style.transform = 'scale(1)'), 200);
+    // Sync to cloud counter for all other users
+    incrementSharedCount();
 
     // Spawn 5 floating wish items around the button
     const rect = wishBtn.getBoundingClientRect();
