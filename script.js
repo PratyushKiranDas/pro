@@ -832,15 +832,37 @@ function initMusicPlayer() {
 function initWishMaker() {
   const wishBtn = document.getElementById('send-wish-btn');
   const counterEl = document.getElementById('wish-count-number');
-  let wishCount = 0;
+  const STORAGE_KEY = 'birthday_wish_count';
 
   if (!wishBtn || !counterEl) return;
+
+  // Restore saved wish count from localStorage
+  let wishCount = 0;
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved !== null) {
+      const parsed = parseInt(saved, 10);
+      if (!isNaN(parsed) && parsed >= 0) {
+        wishCount = parsed;
+      }
+    }
+  } catch (err) {
+    console.warn('LocalStorage not available for wish count:', err);
+  }
+  counterEl.textContent = wishCount;
 
   const wishEmojis = ['💖', '✨', '🎂', '🌸', '🎈', '⭐', '🧁', '🥂', '💌', '🌷'];
 
   wishBtn.addEventListener('click', (e) => {
     wishCount++;
     counterEl.textContent = wishCount;
+
+    // Persist updated count across page visits and browser restarts
+    try {
+      localStorage.setItem(STORAGE_KEY, wishCount.toString());
+    } catch (err) {
+      console.warn('Failed to persist wish count:', err);
+    }
 
     // Small scale pop on counter
     counterEl.parentElement.style.transform = 'scale(1.15)';
@@ -857,7 +879,7 @@ function initWishMaker() {
     }
 
     // Play sweet ascending chime
-    playToneSound(587.33 + wishCount * 20, 0.25);
+    playToneSound(587.33 + (wishCount % 20) * 20, 0.25);
   });
 }
 
