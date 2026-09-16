@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday, Pratyoyee! ✨ (Pro)</title>
+  <meta name="description" content="A romantic, soft pastel birthday celebration website for Pratyoyee (Pro), filled with memories, surprises, and heartfelt wishes." />
+
+  <!-- Google Fonts: Playfair Display, Dancing Script, Outfit, Sacramento -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,600&family=Sacramento&display=swap" rel="stylesheet" />
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Ambient Continuous Falling Confetti & Balloon Canvas -->
+  <canvas id="ambient-canvas" aria-hidden="true"></canvas>
+
+  <!-- ============================================================
+       FLOATING MINIMALIST MUSIC PLAYER
+       Tip: You can replace the synthetic melody with your own MP3
+       by setting the src attribute on the #bg-audio element below!
+       ============================================================ -->
+  <div class="music-player" id="music-player" title="Click to toggle birthday music">
+    <audio id="bg-audio" preload="auto"></audio>
+    <button class="music-btn" id="music-toggle" aria-label="Toggle background music">
+      <span class="music-icon" id="music-icon">🎵</span>
+      <div class="music-waves" id="music-waves" aria-hidden="true">
+        <span class="wave-bar"></span>
+        <span class="wave-bar"></span>
+        <span class="wave-bar"></span>
+        <span class="wave-bar"></span>
+      </div>
+    </button>
+    <div class="music-label">
+      <span class="music-title" id="music-title">Birthday Lullaby 🌸</span>
+      <span class="music-status" id="music-status">Click to play 🎶</span>
+    </div>
+    <button class="music-next-btn" id="music-next-btn" title="Switch Birthday Melody ⏭️" aria-label="Next song">
+      <span>⏭️</span>
+    </button>
+  </div>
+
+  <!-- Main Page Container -->
+  <main class="page-container">
+
+    <!-- ============================================================
+         1. HERO SECTION
+         ============================================================ -->
+    <section class="hero-section" id="hero">
+      <div class="hero-backdrop-glow" aria-hidden="true"></div>
+
+      <!-- Hero Featured Avatar -->
+      <div class="hero-avatar-wrapper">
+        <div class="hero-avatar-ring"></div>
+        <div class="hero-avatar-frame">
+          <img src="images/photo-candid-monochrome.jpg" alt="Pratyoyee (Pro)" class="hero-avatar-img" />
+        </div>
+        <div class="hero-avatar-badge">
+          <span>Birthday Queen 👑</span>
+        </div>
+      </div>
+
+      <!-- Nickname Badge / Toggle Pill -->
+      <div class="nickname-pill-wrapper">
+        <div class="nickname-toggle-bar" id="name-toggle-bar" role="button" tabindex="0" aria-label="Toggle between full name and nickname">
+          <span class="pill-label">Calling:</span>
+          <div class="pill-toggle" id="pill-toggle">
+            <span class="pill-option active" id="opt-full">Pratyoyee</span>
+            <span class="pill-option" id="opt-nick">Pro 🌸</span>
+            <span class="pill-slider" id="pill-slider"></span>
+          </div>
+          <span class="pill-hint">(tap to switch!)</span>
+        </div>
+      </div>
+
+      <!-- Main Birthday Header Title -->
+      <div class="hero-text-content">
+        <div class="sub-greeting">✨ A very special day for a very special soul ✨</div>
+        <h1 class="main-title">
+          Happy Birthday,<br />
+          <span class="animated-name" id="hero-name-display">Pratyoyee</span>!
+        </h1>
+        <p class="hero-subtitle">
+          May your year be as gentle as pastel skies, filled with infectious laughter,
+          warm memories, boundless success, and all the happiness your heart can hold. 💕
+        </p>
+
+        <!-- Quick Action Buttons -->
+        <div class="hero-actions">
+          <a href="#gallery-section" class="btn btn-primary">
+            <span>Memory Wall 📸</span>
+          </a>
+          <a href="#reasons-section" class="btn btn-secondary">
+            <span>Why You're Amazing 💕</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Floating Decorative Elements -->
+      <div class="floating-badge badge-left">✨ Born to Shine</div>
+      <div class="floating-badge badge-right">💖 Purest Heart</div>
+    </section>
+
+
+    <!-- ============================================================
+         2. INTERACTIVE POLAROID PHOTO GALLERY (MEMORY WALL)
+         ============================================================ -->
+    <section class="gallery-section" id="gallery-section">
+      <div class="section-tag">Cherished Moments</div>
+      <h2 class="section-title">Polaroid Memory Wall</h2>
+      <p class="section-desc">
+        Every snapshot carries a piece of magic. <em>(Click any card to flip and read the handwritten memory, or tap 🔍 to view full photo!)</em>
+      </p>
+
+      <div class="polaroid-grid" id="polaroid-grid">
+
+        <!-- Polaroid Card 1: Candid Monochrome Portrait -->
+        <article class="polaroid-card" style="--rotation: -2.2deg;" tabindex="0" role="button" aria-label="Flip polaroid memory 1">
+          <div class="card-inner">
+            <!-- Front Face -->
+            <div class="card-face card-front">
+              <div class="washi-tape tape-top tape-pink"></div>
+              <div class="photo-frame">
+                <img src="images/photo-candid-monochrome.jpg" alt="Pratyoyee candid monochrome portrait" class="img-pos-monochrome" loading="lazy" />
+                <button class="zoom-btn" data-src="images/photo-candid-monochrome.jpg" data-caption="Timeless Grace & Glow 🤍" aria-label="Enlarge photo">🔍</button>
+              </div>
+              <div class="polaroid-footer">
+                <span class="polaroid-caption">Timeless Grace & Glow 🤍</span>
+                <span class="polaroid-date">Unfiltered Smile • Pure Soul</span>
+              </div>
+              <span class="flip-hint-icon">↺ tap to flip</span>
+            </div>
+            <!-- Back Face (Memory Note) -->
+            <div class="card-face card-back">
+              <div class="washi-tape tape-top tape-pink"></div>
+              <div class="card-back-content">
+                <div class="memory-stamp">#01 • TIMELESS</div>
+                <h3 class="memory-title">That Radiant Sparkle</h3>
+                <p class="memory-text">
+                  "A smile that is effortless, timeless, and full of pure warmth. You have this natural glow that shines brightly in every single shade of life, Pro!"
+                </p>
+                <div class="memory-doodle">✨ 🤍 🌸</div>
+                <span class="flip-back-hint">↺ click to see photo</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Polaroid Card 2: Birthday Celebration Besties -->
+        <article class="polaroid-card" style="--rotation: 1.8deg;" tabindex="0" role="button" aria-label="Flip polaroid memory 2">
+          <div class="card-inner">
+            <div class="card-face card-front">
+              <div class="washi-tape tape-top tape-purple"></div>
+              <div class="photo-frame">
+                <img src="images/photo-birthday-besties.jpg" alt="Pratyoyee and best friend birthday celebration" class="img-pos-besties" loading="lazy" />
+                <button class="zoom-btn" data-src="images/photo-birthday-besties.jpg" data-caption="Double Trouble & Birthday Joy 🎀" aria-label="Enlarge photo">🔍</button>
+              </div>
+              <div class="polaroid-footer">
+                <span class="polaroid-caption">Double Trouble & Joy 🎀</span>
+                <span class="polaroid-date">Unfiltered Smiles • Forever Duo</span>
+              </div>
+              <span class="flip-hint-icon">↺ tap to flip</span>
+            </div>
+            <div class="card-face card-back">
+              <div class="washi-tape tape-top tape-purple"></div>
+              <div class="card-back-content">
+                <div class="memory-stamp">#02 • BESTIES</div>
+                <h3 class="memory-title">Pure Golden Smiles</h3>
+                <p class="memory-text">
+                  "From uncontrollable laughing fits to celebrating every milestone together, every single memory with you is pure gold. Happy Birthday to my favorite partner in crime!"
+                </p>
+                <div class="memory-doodle">👯‍♀️ 🎂 💖</div>
+                <span class="flip-back-hint">↺ click to see photo</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Polaroid Card 3: Riverside Serenity -->
+        <article class="polaroid-card" style="--rotation: -1.8deg;" tabindex="0" role="button" aria-label="Flip polaroid memory 3">
+          <div class="card-inner">
+            <div class="card-face card-front">
+              <div class="washi-tape tape-top tape-blue"></div>
+              <div class="photo-frame">
+                <img src="images/photo-riverside-breeze.jpg" alt="Pratyoyee enjoying riverside breeze" class="img-pos-river" loading="lazy" />
+                <button class="zoom-btn" data-src="images/photo-riverside-breeze.jpg" data-caption="Riverside Breeze & Free Spirit 🌊" aria-label="Enlarge photo">🔍</button>
+              </div>
+              <div class="polaroid-footer">
+                <span class="polaroid-caption">Riverside Breeze & Joy 🌊</span>
+                <span class="polaroid-date">Serene Days • Gentle Whispers</span>
+              </div>
+              <span class="flip-hint-icon">↺ tap to flip</span>
+            </div>
+            <div class="card-face card-back">
+              <div class="washi-tape tape-top tape-blue"></div>
+              <div class="card-back-content">
+                <div class="memory-stamp">#03 • SERENITY</div>
+                <h3 class="memory-title">Wild, Gentle & Free</h3>
+                <p class="memory-text">
+                  "Wind in your hair, gentle river waves, and that effortless sparkle. You carry a soothing aura that makes any cloudy day feel completely light and peaceful."
+                </p>
+                <div class="memory-doodle">🌊 🕊️ 🍃</div>
+                <span class="flip-back-hint">↺ click to see photo</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Polaroid Card 4: Saree & Bookworm Aesthetic -->
+        <article class="polaroid-card" style="--rotation: 1.6deg;" tabindex="0" role="button" aria-label="Flip polaroid memory 4">
+          <div class="card-inner">
+            <div class="card-face card-front">
+              <div class="washi-tape tape-top tape-gold"></div>
+              <div class="photo-frame">
+                <img src="images/photo-saree-aesthetic.jpg" alt="Pratyoyee reading book in traditional saree" class="img-pos-book" loading="lazy" />
+                <button class="zoom-btn" data-src="images/photo-saree-aesthetic.jpg" data-caption="Aesthetic Soul & Poetry 📖" aria-label="Enlarge photo">🔍</button>
+              </div>
+              <div class="polaroid-footer">
+                <span class="polaroid-caption">Aesthetic Soul & Poetry 📖</span>
+                <span class="polaroid-date">Timeless Grace • Old Soul Vibe</span>
+              </div>
+              <span class="flip-hint-icon">↺ tap to flip</span>
+            </div>
+            <div class="card-face card-back">
+              <div class="washi-tape tape-top tape-gold"></div>
+              <div class="card-back-content">
+                <div class="memory-stamp">#04 • POETRY</div>
+                <h3 class="memory-title">Old Soul in Modern Times</h3>
+                <p class="memory-text">
+                  "Lost in the pages of a great book, draped in timeless saree grace, and surrounded by art. You appreciate life's subtle melodies and true heartfelt poetry."
+                </p>
+                <div class="memory-doodle">📚 ☕ 🕯️</div>
+                <span class="flip-back-hint">↺ click to see photo</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Polaroid Card 5: Festive Saree Glamour -->
+        <article class="polaroid-card" style="--rotation: -2.0deg;" tabindex="0" role="button" aria-label="Flip polaroid memory 5">
+          <div class="card-inner">
+            <div class="card-face card-front">
+              <div class="washi-tape tape-top tape-pink"></div>
+              <div class="photo-frame">
+                <img src="images/photo-festive-elegance.jpg" alt="Pratyoyee glowing in festive saree and gold jewelry" class="img-pos-saree" loading="lazy" />
+                <button class="zoom-btn" data-src="images/photo-festive-elegance.jpg" data-caption="Festive Radiance & Glamour ✨" aria-label="Enlarge photo">🔍</button>
+              </div>
+              <div class="polaroid-footer">
+                <span class="polaroid-caption">Festive Radiance & Grace ✨</span>
+                <span class="polaroid-date">Celebration Nights • Pure Glow</span>
+              </div>
+              <span class="flip-hint-icon">↺ tap to flip</span>
+            </div>
+            <div class="card-face card-back">
+              <div class="washi-tape tape-top tape-pink"></div>
+              <div class="card-back-content">
+                <div class="memory-stamp">#05 • GLAMOUR</div>
+                <h3 class="memory-title">The Saree Queen</h3>
+                <p class="memory-text">
+                  "No one carries traditional royalty and elegance quite like you! When you step out in a saree with that radiant smile, you effortlessly steal the spotlight."
+                </p>
+                <div class="memory-doodle">👑 🪔 🌸</div>
+                <span class="flip-back-hint">↺ click to see photo</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Polaroid Card 6: Boss Lady Look -->
+        <article class="polaroid-card" style="--rotation: 2.1deg;" tabindex="0" role="button" aria-label="Flip polaroid memory 6">
+          <div class="card-inner">
+            <div class="card-face card-front">
+              <div class="washi-tape tape-top tape-teal"></div>
+              <div class="photo-frame">
+                <img src="images/photo-boss-lady.jpg" alt="Pratyoyee looking sharp and confident in blazer" class="img-pos-boss" loading="lazy" />
+                <button class="zoom-btn" data-src="images/photo-boss-lady.jpg" data-caption="Boss Lady Energy 💼" aria-label="Enlarge photo">🔍</button>
+              </div>
+              <div class="polaroid-footer">
+                <span class="polaroid-caption">Boss Lady Energy 💼</span>
+                <span class="polaroid-date">Unstoppable • Sharp & Chic</span>
+              </div>
+              <span class="flip-hint-icon">↺ tap to flip</span>
+            </div>
+            <div class="card-face card-back">
+              <div class="washi-tape tape-top tape-teal"></div>
+              <div class="card-back-content">
+                <div class="memory-stamp">#06 • AMBITION</div>
+                <h3 class="memory-title">Smart, Sharp & Inspiring</h3>
+                <p class="memory-text">
+                  "Fierce, ambitious, intelligent, and looking like an absolute boss! Keep dreaming boldly without ever doubting your capabilities, Pro. The world is yours!"
+                </p>
+                <div class="memory-doodle">👓 💼 💫</div>
+                <span class="flip-back-hint">↺ click to see photo</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         3. "REASONS WHY YOU'RE AMAZING" ACCORDION
+         ============================================================ -->
+    <section class="reasons-section" id="reasons-section">
+      <div class="section-tag">A Love Letter of Admiration</div>
+      <h2 class="section-title">Reasons Why You're Amazing, Pro</h2>
+      <p class="section-desc">Just a tiny reminder of how deeply treasured and loved you are, today and every single day.</p>
+
+      <div class="accordion-controls">
+        <button class="control-btn" id="expand-all-btn">Expand All 🌸</button>
+        <button class="control-btn" id="collapse-all-btn">Collapse All 🍃</button>
+      </div>
+
+      <div class="accordion-container" id="accordion">
+
+        <!-- Accordion Item 1 -->
+        <div class="accordion-item active">
+          <button class="accordion-header" aria-expanded="true">
+            <span class="heart-bullet">💖</span>
+            <span class="accordion-title-text">Your warmth & golden smile instantly light up every room</span>
+            <span class="accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="accordion-body">
+            <div class="accordion-content">
+              <p>
+                You have this rare, magical gift where anyone who talks to you feels heard, comfortable, and truly appreciated. Your laughter and empathy are like sunshine on the gloomiest day.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accordion Item 2 -->
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false">
+            <span class="heart-bullet">💖</span>
+            <span class="accordion-title-text">Your timeless grace, poetic heart & aesthetic taste</span>
+            <span class="accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="accordion-body">
+            <div class="accordion-content">
+              <p>
+                Whether it's reading a great story, rocking an elegant saree with effortless charm, or finding beauty in little things, you have an exquisite old-soul appreciation for the real art of living.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accordion Item 3 -->
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false">
+            <span class="heart-bullet">💖</span>
+            <span class="accordion-title-text">You are ambitious, resilient, and a total Boss Lady</span>
+            <span class="accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="accordion-body">
+            <div class="accordion-content">
+              <p>
+                Even when things get tough, you tackle challenges with sharp intellect, courage, and grit. You're an inspiration to everyone watching your journey, Pro!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accordion Item 4 -->
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false">
+            <span class="heart-bullet">💖</span>
+            <span class="accordion-title-text">Simply because you are YOU—irreplaceable and deeply loved</span>
+            <span class="accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="accordion-body">
+            <div class="accordion-content">
+              <p>
+                At the end of the day, you don't have to prove anything to be celebrated. Just existing as Pratyoyee—our one and only Pro—is more than enough reason to throw the biggest celebration ever!
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         4. INTERACTIVE BIRTHDAY WISH MAKER
+         ============================================================ -->
+    <section class="wish-section" id="wish-section">
+      <div class="wish-card">
+        <div class="wish-icon">🎂</div>
+        <h2 class="wish-title">Send a Birthday Wish into the Sky!</h2>
+        <p class="wish-desc">Tap the button below to blow out candles and release floating sparkles & love hearts across the screen!</p>
+        
+        <div class="wish-action-wrap">
+          <button class="wish-sparkle-btn" id="send-wish-btn">
+            <span>Make a Birthday Wish ✨</span>
+          </button>
+          <div class="wish-counter-pill">
+            <span id="wish-count-number">0</span> wishes sent so far 💕
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ============================================================
+       PHOTO LIGHTBOX / FULLSCREEN ZOOM MODAL
+       ============================================================ -->
+  <div class="lightbox-overlay" id="lightbox-modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="lightbox-container">
+      <button class="lightbox-close-btn" id="lightbox-close-btn" aria-label="Close photo preview">&times;</button>
+      <div class="lightbox-frame">
+        <img src="" alt="Photo preview" id="lightbox-img" class="lightbox-img" />
+      </div>
+      <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="footer">
+    <p class="footer-text">
+      Crafted with endless pastel love, sparkles & joy for <strong>Pratyoyee (Pro)</strong> 💖
+    </p>
+    <p class="footer-sub">
+      Happy Birthday • Forever & Always ✨
+    </p>
+  </footer>
+
+  <!-- Main JavaScript File -->
+  <script src="script.js"></script>
+</body>
+</html>
