@@ -677,7 +677,46 @@ function initMusicPlayer() {
 
   if (!player || !statusLabel) return;
 
+  // Configure audio file, looping, and autoplay
+  if (audioElement) {
+    if (!audioElement.getAttribute('src')) {
+      audioElement.src = 'song.mpeg';
+    }
+    audioElement.loop = true;
+
+    // Synchronize UI animations with actual audio events
+    audioElement.addEventListener('play', () => {
+      player.classList.add('playing');
+      statusLabel.textContent = 'Now Playing 🎶';
+    });
+
+    audioElement.addEventListener('pause', () => {
+      player.classList.remove('playing');
+      statusLabel.textContent = 'Paused ⏸️';
+    });
+
+    // Attempt autoplay; if restricted by browser policy, play on first user interaction
+    const attemptPlay = () => {
+      audioElement.play().catch(() => {
+        const onFirstInteraction = () => {
+          if (audioElement.paused) {
+            audioElement.play().catch(() => {});
+          }
+        };
+        ['click', 'touchstart', 'keydown'].forEach((evt) => {
+          document.addEventListener(evt, onFirstInteraction, { once: true });
+        });
+      });
+    };
+
+    attemptPlay();
+  }
+
   function updateSongDisplay() {
+    if (audioElement && audioElement.src && audioElement.src.length > 5) {
+      if (titleLabel) titleLabel.textContent = 'Birthday Melody 🌸';
+      return;
+    }
     const track = playlist[currentPlaylistIdx];
     if (titleLabel) titleLabel.textContent = track.name;
   }
@@ -747,6 +786,16 @@ function initMusicPlayer() {
 
   function nextTrack(e) {
     if (e) e.stopPropagation();
+    if (audioElement && audioElement.src && audioElement.src.length > 5) {
+      audioElement.currentTime = 0;
+      audioElement.play().catch(() => {});
+      if (titleLabel) {
+        titleLabel.style.transform = 'scale(1.1)';
+        setTimeout(() => (titleLabel.style.transform = 'scale(1)'), 200);
+      }
+      return;
+    }
+
     currentPlaylistIdx = (currentPlaylistIdx + 1) % playlist.length;
     currentStepIdx = 0;
     clearTimeout(melodyTimeout);
