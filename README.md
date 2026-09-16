@@ -1,6 +1,6 @@
 # 🌸 Happy Birthday, Pratyoyee! (Pro) 🌸
 
-A responsive, romantic, pastel-themed birthday celebration website built with HTML5, CSS3, and vanilla JavaScript.
+A responsive, romantic, pastel-themed birthday celebration website built with HTML5, CSS3, and modern vanilla JavaScript.
 
 ---
 
@@ -39,19 +39,52 @@ A responsive, romantic, pastel-themed birthday celebration website built with HT
    - Includes *"Expand All 🌸"* and *"Collapse All 🍃"* buttons.
 
 5. **Floating Minimalist Music Player**:
-   - Fixed pill player with sound waves visualizer and play/pause button.
-   - **Built-in Music Box Chime**: Uses the Web Audio API to play a soothing music-box lullaby / "Happy Birthday" variation with zero external audio dependencies.
-   - Can also play any custom MP3 audio file.
+   - Plays custom dedicated background melody soundtrack (**`song.mpeg`**) with seamless looping.
+   - **Smart Autoplay**: Begins playback automatically with zero-friction fallback on first user interaction to comply with modern browser media policies.
+   - **Animated Sound Equalizer**: Responsive sound wave equalizer bars that animate dynamically during playback.
+   - **Polyphonic Web Audio Fallback**: Built-in 3-track synthesizer music box engine.
 
-6. **"Make a Birthday Wish" Counter**:
-   - Interactive button releasing floating hearts and stars up the screen with an ascending chime sound and live wish counter.
+6. **"Make a Birthday Wish" Counter (Real-Time Global Sync & Persistence)**:
+   - **Worldwide Real-Time Sync**: Synchronized across all users, browsers, and devices using a global cloud counter API. When any friend taps the wish button, the counter updates live across everyone's screens with a celebratory bounce animation.
+   - **Persistent Storage**: Utilizes dual-layer storage (`CountAPI` + `localStorage`) so wish totals are never lost when closing the tab or browser.
+   - **Micro-Interactions**: Floating multi-emoji particles (🎂, ✨, 💖, 🌸, 🎈, ⭐) float upwards with melodic ascending chimes.
 
 ---
 
-## 🚀 How to View Locally
+## 📁 Project Structure
 
-Simply open `http://localhost:8888/` in any browser, or run:
+```text
+├── index.html            # Main website structure & semantic HTML5 markup
+├── style.css             # Pastel design system, animations, & responsive styles
+├── script.js             # Interactive logic, audio engine, cloud sync, & particle canvases
+├── song.mpeg             # Dedicated background music track
+├── README.md             # Project documentation & setup instructions
+├── .vscode/
+│   └── launch.json       # VS Code one-click browser launch configurations (F5)
+└── images/               # High-resolution gallery & keepsake photographs
+    ├── photo-birthday-besties.jpg
+    ├── photo-boss-lady.jpg
+    ├── photo-candid-monochrome.jpg
+    ├── photo-festive-elegance.jpg
+    ├── photo-riverside-breeze.jpg
+    └── photo-saree-aesthetic.jpg
+```
+
+---
+
+## 🚀 How to Run Locally
+
+### Option 1: Using `npx serve` (Recommended)
 ```bash
-# Python local server
+npx serve . -p 8888
+```
+Then visit: **[http://localhost:8888](http://localhost:8888)**
+
+### Option 2: Using Python
+```bash
 python -m http.server 8888
 ```
+Then visit: **[http://localhost:8888](http://localhost:8888)**
+
+### Option 3: Via VS Code (Run & Debug)
+Press **F5** or navigate to the **Run & Debug** tab in VS Code and choose **"Launch in Chrome"** or **"Launch in Edge"**.
